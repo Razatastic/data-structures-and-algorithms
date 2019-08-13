@@ -4,7 +4,6 @@ class LinkedList {
     private int size;
     private Node head;
 
-
     /**
      * Constructor
      *
@@ -24,26 +23,6 @@ class LinkedList {
     }
 
     /**
-     * Traverses through the entire list
-     *
-     * @param n head node
-     * @return the 2nd to last element
-     */
-    private Node traverse(Node n) { // Returns last element of linked list
-        if (n.next.next == null) return n;
-        return traverse(n.next);
-    }
-
-    /**
-     * Helper function
-     *
-     * @return the last element
-     */
-    private Node traverse() {
-        return traverse(head);
-    }
-
-    /**
      * Prints the entire list
      */
     void printList() {
@@ -52,31 +31,82 @@ class LinkedList {
             System.out.print(current.data + " ");
             current = current.next;
         }
+        System.out.println();
     }
 
     /**
-     * Adds an element to the end of the linked list
+     * Adds an element to the end of the list
      *
      * @param input element being added
      * @return value of the newly created node
      */
-    String add(String input) {
-        if (size == 1) {
-            head.next = new Node(input);
-            return head.next.data;
-        }
-        Node lastElm = traverse().next;
-        lastElm.next = new Node(input); // set the last node's pointer to a newly created node with the user-supplied data
+    Node add(String input) {
+        if (size() == 0) addFirst(input);
+
+        Node current = head;
+        while (current.next != null) current = current.next;
+        current.next = new Node(input);
+
         incrementSize();
-        return lastElm.next.data;
+        return head;
+    }
+
+    Node addFirst(String input) {
+        Node newNode = new Node(input);
+        newNode.next = head;
+        head = newNode;
+        incrementSize();
+        return head;
+    }
+
+    /**
+     * Add an element to a specific part of the list
+     *
+     * @param index where you want to add the list
+     * @param input element being added
+     * @return head node
+     * @throws OutOfRangeException when index < 0 || index > list size
+     */
+    Node add(int index, String input) throws OutOfRangeException {
+        // Check if the index is in a valid range
+        if (index > size() || index < 0)
+            throw new OutOfRangeException("Please enter a valid range from 0 to " + size());
+
+        // If the index is 0, insert the node at the head
+        if (index == 0) addFirst(input);
+
+        // Traverse to the node right before the index you're inserting at
+        int i = 0;
+        Node current = head;
+        while (i != index - 1) {
+            current = current.next;
+            i++;
+        }
+
+        // Insert the new node
+        Node newNode = new Node(input);
+        newNode.next = current.next;
+        current.next = newNode;
+
+        incrementSize();
+        return head;
     }
 
     /**
      * Removes the last element in the list
      */
-    void remove() {
-        Node current = traverse();
+    Node removeLast() throws OutOfRangeException {
+        if (size == 0) throw new OutOfRangeException("There are no elements to remove!");
+        if (size == 1) return null;
+
+        Node current = head;
+        while (current != null && current.next.next != null) {
+            current = current.next;
+        }
+        assert current != null;
         current.next = null;
+
+        return head;
     }
 
     /**
@@ -86,8 +116,8 @@ class LinkedList {
      * @return item at the inputted index
      * @throws OutOfRangeException if index < 0 || index > size
      */
-    String getElement(int index) throws OutOfRangeException {
-        if (index > size || index < 0)
+    String get(int index) throws OutOfRangeException {
+        if (index >= size || index < 0)
             throw new OutOfRangeException("Index out of bounds! Try an index between 0 and " + size);
         Node current = head;
         int i = 0;
@@ -96,6 +126,14 @@ class LinkedList {
             i++;
         }
         return current.data;
+    }
+
+    String getFirst() {
+        return peek();
+    }
+
+    String getLast() throws OutOfRangeException {
+        return get(size() - 1);
     }
 
     /**
@@ -113,11 +151,20 @@ class LinkedList {
     }
 
     /**
+     * Get size of list
+     *
+     * @return size of list
+     */
+    private int size() {
+        return size;
+    }
+
+    /**
      * Get head value
      *
      * @return value of head
      */
     String peek() {
-        return head.data;
+        return head == null ? null : head.data;
     }
 }
