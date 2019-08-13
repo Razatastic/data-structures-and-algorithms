@@ -1,29 +1,55 @@
 package LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
-    private static LinkedList test = new LinkedList("hello");
+    private static LinkedList test = new LinkedList("hello"); // with initial value for head node
+    private static LinkedList test2 = new LinkedList(); // without initial value for head node
 
     @Test
-    void addCheck() {
-        assertEquals(test.peek(), test.add("hello"));
+    @DisplayName("Checks whether the head is properly being initialized in the constructor")
+    void headIsInitialized() {
+        assertEquals("hello", test.peek());
     }
 
     @Test
-    void addCheck2() {
-        assertEquals("s", test.add("s"));
+    void getHead() throws OutOfRangeException {
+        assertEquals("hello", test.get(0));
     }
 
     @Test
-    void getElem() throws OutOfRangeException {
-        assertEquals("hello", test.getElement(0));
+    void getAnyElement() throws OutOfRangeException {
+        test.add("yo");
+        assertEquals("yo", test.get(1));
     }
 
     @Test
-    void getElem2() throws OutOfRangeException {
-        assertEquals("do", test.getElement(3));
+    @DisplayName("Checks if the input is being added to the end of the list")
+    void add() throws OutOfRangeException {
+        test.add("world");
+        assertEquals("world", test.getLast());
+    }
+
+    @Test
+    void addAtFront() {
+        test.addFirst("Yo");
+        assertEquals("Yo", test.peek());
+    }
+
+    @Test
+    void addAtIndex() throws OutOfRangeException {
+        test.add("world");
+        test.add(1, "testing");
+        assertEquals("testing", test.get(1));
+    }
+
+    @Test
+    @DisplayName("Check if the list constructor without arguments is initializing properly")
+    void headIsNull() {
+        assertNull(test2.peek());
     }
 }
