@@ -128,10 +128,21 @@ class LinkedList {
         return current.data;
     }
 
+    /**
+     * Get the value of the head node
+     *
+     * @return head node's value
+     */
     String getFirst() {
         return peek();
     }
 
+    /**
+     * Get the value of the last node
+     *
+     * @return last node's value
+     * @throws OutOfRangeException when list is empty
+     */
     String getLast() throws OutOfRangeException {
         return get(size() - 1);
     }
@@ -155,7 +166,7 @@ class LinkedList {
      *
      * @return size of list
      */
-    private int size() {
+    int size() {
         return size;
     }
 
