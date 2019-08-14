@@ -1,92 +1,107 @@
-//package Graph;
-//
-//import java.util.HashMap;
-//import java.util.HashSet;
-//import java.util.Map;
-//import java.util.Set;
-//
-//
-//public class Graph<T, V extends Comparable<V>> {
-//    int numOfNodes; // Order
-//    int numOfEdges; // Size
-//    Map<Vertex<T>, Set<Edge<V>>> adjList;
-//
-//    Graph() {
-//        numOfEdges = 0;
-//        adjList = new HashMap<>();
-//    }
-//
-//    void addVertex(T data) {
-//        Vertex<T> valBeingAdded = new Vertex<>(data);
-//        if (!adjList.containsKey(valBeingAdded)) {
-//            adjList.put(valBeingAdded, new HashSet<>());
-////            incrementDegree();
-//        }
-//    }
-//
-//    void removeVertex(T data) throws KeyNotFoundException {
-//        if (vertexExists(data)) {
-//            Vertex v = getVertex(data);
-////            if (hasNeighbors()) {
-////
-////            }
-//        } else {
-//            throw new KeyNotFoundException("The vertex being removed doesn't exist!");
-//        }
-//    }
-//
-//    boolean hasNeighbors(T data) {
-//        return adjList.get(data).size() == 0 ? false : true;
-//    }
-//
-//    void addEdge(T startVal, T endVal, V weight) {
-//        if (!vertexExists(startVal)) {
-//            addVertex(startVal);
-//        }
-//        if (!vertexExists(endVal)) {
-//            addVertex(endVal);
-//        }
-//
-//        Vertex<T> start = getVertex(startVal), end = getVertex(endVal);
-//
-//        // Create an edge between the two vertices
-//        adjList.entrySet().forEach(entry -> {
-////            if (entry.getKey().equals(start)) {
-////                entry.getValue().add(new Edge<>(start, end, weight));
-////            }
-////            if (entry.getKey().equals(end)) {
-////                entry.getValue().add(new Edge<>(end, start, weight));
-////            }
-//        });
-//        incrementSize();
-//    }
-//
-//    boolean vertexExists(T input) {
-//        Vertex v1 = new Vertex<>(input);
-//        return adjList.containsKey(v1);
-//    }
-//
-//    Vertex<T> getVertex(T input) {
-//        Vertex<T> temp = new Vertex<>(input);
-//        if (!adjList.containsKey(temp)) {
-//            return null;
-//        }
-//        return temp;
-//    }
-//
-//    void incrementSize() {
-//        numOfEdges++;
-//    }
-//
-//    void decrementSize() {
-//        numOfEdges--;
-//    }
-//
-////    void incrementDegree() {
-////        numOfVertices++;
-////    }
-////
-////    void decrementDegree() {
-////        numOfVertices--;
-////    }
-//}
+package Graph;
+
+import javax.management.openmbean.KeyAlreadyExistsException;
+import java.util.*;
+
+public class Graph {
+    private int nodeCount; // Order
+    private int edgeCount; // Size
+    private Map<Node, Set<Edge>> adjList;
+
+    Graph() {
+        nodeCount = 0;
+        edgeCount = 0;
+        adjList = new HashMap<>();
+    }
+
+    /**
+     * Adds a node to the adjacency list
+     *
+     * @param input the value of the node
+     */
+    void addNode(String input) {
+        // Create a node with the given input
+        Node newNode = new Node(input);
+
+        // Check if the node already exists
+        if (adjList.containsKey(newNode)) throw new KeyAlreadyExistsException();
+
+        // If it does not, then add it to the adjacency list and increment the node count
+        adjList.put(new Node(input), new HashSet<>());
+        incrementNodeCount();
+    }
+
+    void removeNode(String input) {
+        // Create a node with the given input
+        Node nodeBeingRemoved = new Node(input);
+
+        // Remove all references in the sets
+        adjList.values().forEach(value -> value.forEach(edge -> {
+            if (edge.getStart().equals(nodeBeingRemoved) || edge.getEnd().equals(nodeBeingRemoved)) {
+                value.remove(edge);
+            }
+        }));
+
+        // Remove the actual key
+        adjList.remove(nodeBeingRemoved);
+    }
+
+    void addEdge(String start, String end, int weight) throws Exception {
+        if (start.equals(end)) throw new Exception("You can't create an edge between the same point!");
+
+        Node startNode = new Node(start);
+        Node endNode = new Node(end);
+
+        if (!adjList.containsKey(startNode)) addNode(start);
+        if (!adjList.containsKey(endNode)) addNode(end);
+
+        if (edgeExists(startNode, endNode)) {
+            throw new ValueAlreadyExistsException("Already exists!");
+        }
+
+        adjList.get(startNode).add(new Edge(startNode, endNode, weight));
+        adjList.get(endNode).add(new Edge(endNode, startNode, weight));
+    }
+
+    void removeEdge(String start, String end) {
+        Node startNode = new Node(start);
+        Node endNode = new Node(end);
+
+        if (edgeExists(startNode, endNode)) {
+            adjList.get(startNode).remove(new Edge(startNode, endNode, 0));
+            adjList.get(endNode).remove(new Edge(endNode, startNode, 0));
+        }
+    }
+
+    private boolean edgeExists(Node start, Node end) {
+        Edge one = new Edge(start, end, 0);
+        Edge two = new Edge(start, end, 0);
+        return adjList.get(start).contains(one) || adjList.get(end).contains(two);
+    }
+
+    void printAdjList() {
+        adjList.forEach((key, value) -> {
+            System.out.print(key + ": ");
+            value.forEach(edge -> {
+                System.out.print(edge.getStart() + " & " + edge.getEnd() + ", ");
+            });
+            System.out.println();
+        });
+    }
+
+    private void incrementNodeCount() {
+        nodeCount++;
+    }
+
+    private void decrementNodeCount() {
+        nodeCount--;
+    }
+
+    private void incrementEdgeCount() {
+        edgeCount++;
+    }
+
+    private void decrementEdgeCount() {
+        edgeCount--;
+    }
+}

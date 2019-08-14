@@ -1,16 +1,15 @@
 package Graph;
 
-class Vertex<T> {
-    private T data;
-    private int degree;
-    // Number of adjacent vertices = degree
+class Node {
+    private String data;
+    private int degree; // Number of adjacent vertices
 
-    Vertex(T input) {
+    Node(String input) {
         this.data = input;
         this.degree = 0;
     }
 
-    public T getData() {
+    public String getData() {
         return data;
     }
 
@@ -21,7 +20,7 @@ class Vertex<T> {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Vertex && ((Vertex) o).data.equals(this.data);
+        return o instanceof Node && ((Node) o).data.equals(this.data);
     }
 
     @Override
