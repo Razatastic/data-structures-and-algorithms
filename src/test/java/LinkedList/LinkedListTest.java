@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-
 class LinkedListTest {
     private static LinkedList test = new LinkedList("one"); // with initial value for head node
     private static LinkedList test2 = new LinkedList(); // without initial value for head node
