@@ -14,11 +14,11 @@ public class Edge {
         return weight;
     }
 
-    public Node getStart() {
+    Node getStart() {
         return start;
     }
 
-    public Node getEnd() {
+    Node getEnd() {
         return end;
     }
 
