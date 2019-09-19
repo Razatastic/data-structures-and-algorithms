@@ -1,29 +1,37 @@
 package Graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 class GraphTest {
-    static private Graph test = new Graph();
+    Graph test = new Graph();
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    void nodeCount() throws Exception {
+        // Check count upon creation
+        assertEquals(0, test.getNodeCount());
+
+        // Check count after adding a node
         test.addNode("A");
-        test.addNode("B");
-        test.addNode("C");
-        test.addEdge("A", "B", 3);
-        test.addEdge("D", "C", 12);
+        assertEquals(1, test.getNodeCount());
 
-        test.printAdjList();
-
-        test.removeEdge("B", "A");
-        System.out.println("----------------");
-        test.printAdjList();
+        // Check count after deleting a node
+        test.removeNode("A");
+        assertEquals(0, test.getNodeCount());
     }
-//    @Test
-//    void addNode() {
-//        assertTrue(test.addNode("D"));
-//        test.addNode("D");
-//    }
+
+    @Test
+    void edgeCount() throws Exception {
+        // Check count upon creation
+        assertEquals(0, test.getEdgeCount());
+
+        // Check count after adding an edge
+        test.addEdge("A", "B", 12);
+        assertEquals(1, test.getEdgeCount());
+
+        // Check count after removing an edge
+        test.removeEdge("A", "B");
+        assertEquals(0, test.getEdgeCount());
+    }
 }

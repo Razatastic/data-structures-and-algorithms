@@ -9,13 +9,13 @@ class Node {
         this.degree = 0;
     }
 
-    public String getData() {
+    String getData() {
         return data;
     }
 
     @Override
     public int hashCode() {
-        return 31 * data.toString().hashCode();
+        return 31 * data.hashCode();
     }
 
     @Override
@@ -25,7 +25,7 @@ class Node {
 
     @Override
     public String toString() {
-        return data.toString();
+        return data;
     }
 
     public void incrementDegree() {

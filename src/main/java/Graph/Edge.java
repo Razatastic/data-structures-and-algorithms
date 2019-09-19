@@ -10,16 +10,16 @@ public class Edge {
         this.weight = weight;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
     Node getStart() {
         return start;
     }
 
     Node getEnd() {
         return end;
+    }
+
+    int getWeight() {
+        return weight;
     }
 
     @Override
