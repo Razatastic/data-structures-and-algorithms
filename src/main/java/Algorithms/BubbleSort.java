@@ -1,7 +1,7 @@
 package Algorithms;
 
-public class BubbleSort {
-    public static int[] sort(int[] input) {
+class BubbleSort {
+    static int[] sort(int[] input) {
         for (int i = 0; i < input.length - 1; i++) {
             for (int j = 0; j < input.length - 1; j++) {
                 if (input[j] > input[j + 1]) {

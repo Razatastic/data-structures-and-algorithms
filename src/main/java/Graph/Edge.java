@@ -1,10 +1,10 @@
 package Graph;
 
-public class Edge {
-    private int weight;
+public class Edge<V extends Comparable> implements Comparable<Edge<V>> {
     private Node start, end;
+    private V weight;
 
-    Edge(Node start, Node end, int weight) {
+    Edge(Node start, Node end, V weight) {
         this.start = start;
         this.end = end;
         this.weight = weight;
@@ -18,7 +18,7 @@ public class Edge {
         return end;
     }
 
-    int getWeight() {
+    V getWeight() {
         return weight;
     }
 
@@ -32,5 +32,13 @@ public class Edge {
         if (!(o instanceof Edge)) return false;
         Edge castedInput = (Edge) o;
         return castedInput.getStart().equals(this.getStart()) && (castedInput.getEnd().equals(this.getEnd()));
+    }
+
+    @Override
+    public int compareTo(Edge<V> o) {
+        if (o.getWeight() instanceof Number) {
+            return this.getWeight().compareTo(o.getWeight());
+        }
+        return -1;
     }
 }

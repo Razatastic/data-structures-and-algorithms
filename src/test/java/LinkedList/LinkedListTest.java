@@ -1,14 +1,14 @@
 package LinkedList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 class LinkedListTest {
-    private static LinkedList test = new LinkedList("one"); // with initial value for head node
-    private static LinkedList test2 = new LinkedList(); // without initial value for head node
+    private static LinkedList<String> test = new LinkedList<>("one"); // with initial value for head node
+    private static LinkedList<Integer> test2 = new LinkedList<Integer>(); // without initial value for head node
 
     void populateList() {
         test.add("three");
@@ -18,7 +18,7 @@ class LinkedListTest {
 
     @Test
     @DisplayName("Checks whether the head is properly being initialized in the constructor")
-    void headIsInitialized() {
+    void headIsInitialized() throws OutOfRangeException {
         assertEquals("one", test.peek());
     }
 

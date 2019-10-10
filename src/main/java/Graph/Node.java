@@ -1,15 +1,13 @@
 package Graph;
 
-class Node {
-    private String data;
-    private int degree; // Number of adjacent vertices
+class Node<T> {
+    private T data;
 
-    Node(String input) {
+    Node(T input) {
         this.data = input;
-        this.degree = 0;
     }
 
-    String getData() {
+    T getData() {
         return data;
     }
 
@@ -25,14 +23,6 @@ class Node {
 
     @Override
     public String toString() {
-        return data;
-    }
-
-    public void incrementDegree() {
-        degree++;
-    }
-
-    public void decrementDegree() {
-        degree--;
+        return data.toString();
     }
 }

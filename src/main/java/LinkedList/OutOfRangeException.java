@@ -1,6 +1,6 @@
 package LinkedList;
 
-class OutOfRangeException extends Exception {
+public class OutOfRangeException extends Exception {
     OutOfRangeException() {
         this("Your input is out of range!");
     }

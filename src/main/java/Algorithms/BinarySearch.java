@@ -1,7 +1,6 @@
 package Algorithms;
 
 public class BinarySearch {
-
     private static int getIndex(int[] input, int lo, int hi, int key) {
         if (hi >= lo) {
             // Calculate middle
@@ -13,7 +12,6 @@ public class BinarySearch {
                 // If the key is smaller, then run the search on the left-hand side of the array
             else return getIndex(input, lo, mid - 1, key);
         }
-
         // If key is not present
         return -1;
     }
@@ -22,10 +20,5 @@ public class BinarySearch {
     private static int getIndex(int[] input, int key) throws NullPointerException {
         if (input == null) throw new NullPointerException();
         return getIndex(input, 0, input.length - 1, key);
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        System.out.println(BinarySearch.getIndex(arr, 0));
     }
 }
