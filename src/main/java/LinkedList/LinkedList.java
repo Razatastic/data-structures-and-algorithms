@@ -8,7 +8,7 @@ import Interfaces.List;
  * @param <T>
  */
 class LinkedList<T> implements List<T> {
-    Node<T> head;
+    private Node<T> head;
     private int size;
 
     LinkedList(T input) {
@@ -19,6 +19,10 @@ class LinkedList<T> implements List<T> {
     LinkedList() {
         head = null;
         size = 0;
+    }
+
+    T peek() {
+        return head.data;
     }
 
     @Override

@@ -33,24 +33,24 @@ class LinkedListTest {
         assertEquals("five", test.get(test.size() - 2));
     }
 
-    @Test
-    @DisplayName("Checks if the input is being added to the end of the list")
-    void add() throws OutOfRangeException {
-        test.add("nine");
-        assertEquals("nine", test.getLast());
-    }
-
-    @Test
-    void addAtFront() {
-        test.addFirst("zero");
-        assertEquals("zero", test.peek());
-    }
-
-    @Test
-    void addAtIndex() throws OutOfRangeException {
-        test.add(1, "two");
-        assertEquals("two", test.get(1));
-    }
+//    @Test
+//    @DisplayName("Checks if the input is being added to the end of the list")
+//    void add() throws OutOfRangeException {
+//        test.add("nine");
+//        assertEquals("nine", test.getLast());
+//    }
+//
+//    @Test
+//    void addAtFront() {
+//        test.addFirst("zero");
+//        assertEquals("zero", test.peek());
+//    }
+//
+//    @Test
+//    void addAtIndex() throws OutOfRangeException {
+//        test.add(1, "two");
+//        assertEquals("two", test.get(1));
+//    }
 
     @Test
     @DisplayName("Check if the list constructor without arguments is initializing properly")
