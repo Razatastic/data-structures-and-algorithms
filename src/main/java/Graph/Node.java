@@ -1,10 +1,12 @@
 package Graph;
 
 class Node<T> {
+    State currentState;
     private T data;
 
     Node(T input) {
         this.data = input;
+        currentState = State.UNVISITED;
     }
 
     T getData() {

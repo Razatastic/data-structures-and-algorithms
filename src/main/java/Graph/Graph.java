@@ -5,7 +5,7 @@ import java.util.*;
 class Graph<T, V extends Comparable<V>> {
     private int nodeCount; // Order
     private int edgeCount; // Size
-    private Map<Node<T>, Set<Edge<V>>> adjList;
+    private Map<Node<T>, Set<Edge<T, V>>> adjList;
 
     /**
      * Constructor
@@ -84,14 +84,14 @@ class Graph<T, V extends Comparable<V>> {
      * @param end   the ending node
      * @return <tt>true</tt> if an edge exists between these nodes
      */
-    private boolean edgeExists(Node start, Node end) throws Exception {
+    private boolean edgeExists(Node<T> start, Node<T> end) throws Exception {
         // Check if nodes exist
         if (!nodeExists(start) || !nodeExists(end)) {
             throw new Exception("Nodes are invalid!");
         }
 
-        Edge<Integer> one = new Edge<Integer>(start, end, 0);
-        Edge<Integer> two = new Edge<Integer>(end, start, 0);
+        Edge<T, Integer> one = new Edge<T, Integer>(start, end, 0);
+        Edge<T, Integer> two = new Edge<T, Integer>(end, start, 0);
         return adjList.get(start).contains(one) || adjList.get(end).contains(two);
     }
 
@@ -121,8 +121,8 @@ class Graph<T, V extends Comparable<V>> {
         }
 
         // Create the edge if it doesn't exist
-        adjList.get(startNode).add(new Edge<V>(startNode, endNode, weight));
-        adjList.get(endNode).add(new Edge<V>(endNode, startNode, weight));
+        adjList.get(startNode).add(new Edge<T, V>(startNode, endNode, weight));
+        adjList.get(endNode).add(new Edge<T, V>(endNode, startNode, weight));
         edgeCount++;
     }
 
@@ -139,8 +139,8 @@ class Graph<T, V extends Comparable<V>> {
 
         // Remove each nodes reference from the other nodes set
         if (edgeExists(startNode, endNode)) {
-            adjList.get(startNode).remove(new Edge<Integer>(startNode, endNode, 0));
-            adjList.get(endNode).remove(new Edge<Integer>(endNode, startNode, 0));
+            adjList.get(startNode).remove(new Edge<T, Integer>(startNode, endNode, 0));
+            adjList.get(endNode).remove(new Edge<T, Integer>(endNode, startNode, 0));
             edgeCount--;
         }
     }
@@ -154,6 +154,48 @@ class Graph<T, V extends Comparable<V>> {
             value.forEach(edge -> System.out.print(edge.getStart() + " & " + edge.getEnd() + ", "));
             System.out.println();
         });
+    }
+
+    boolean bfs(T start, T end) {
+        Node<T> startNode = new Node<>(start);
+        Node<T> endNode = new Node<>(end);
+
+        // Update state for all nodes
+        for (Node node : adjList.keySet()) {
+            node.currentState = State.UNVISITED;
+        }
+
+        Queue<Node<T>> q = new LinkedList<>();
+        startNode.currentState = State.VISITING;
+        q.add(startNode);
+
+        while (!q.isEmpty()) {
+            Node<T> currNode = q.poll();
+
+            if (currNode != null) {
+                // Queue it's adjacent nodes
+                for (Edge<T, V> edge : adjList.get(currNode)) {
+                    Node<T> adjNode = edge.getEnd();
+
+                    // Queue only unvisited nodes
+                    if (adjNode.currentState == State.UNVISITED) {
+                        if (adjNode.equals(endNode)) return true;
+                        else {
+                            adjNode.currentState = State.VISITING;
+                            q.add(adjNode);
+                        }
+                    }
+                }
+                // Update state
+                currNode.currentState = State.VISITED;
+            }
+        }
+        return false;
+    }
+
+
+    boolean dfs(T start, T end) {
+        return false;
     }
 
     int getNodeCount() {

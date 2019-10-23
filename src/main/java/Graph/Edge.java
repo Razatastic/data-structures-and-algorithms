@@ -1,20 +1,20 @@
 package Graph;
 
-public class Edge<V extends Comparable<V>> implements Comparable<Edge<V>> {
-    private Node start, end;
+public class Edge<T, V extends Comparable<V>> implements Comparable<Edge<T, V>> {
+    private Node<T> start, end;
     private V weight;
 
-    Edge(Node start, Node end, V weight) {
+    Edge(Node<T> start, Node<T> end, V weight) {
         this.start = start;
         this.end = end;
         this.weight = weight;
     }
 
-    Node getStart() {
+    Node<T> getStart() {
         return start;
     }
 
-    Node getEnd() {
+    Node<T> getEnd() {
         return end;
     }
 
@@ -35,10 +35,15 @@ public class Edge<V extends Comparable<V>> implements Comparable<Edge<V>> {
     }
 
     @Override
-    public int compareTo(Edge<V> o) {
+    public int compareTo(Edge<T, V> o) {
         if (o.getWeight() instanceof Number) {
             return this.weight.compareTo(o.weight);
         }
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Start Node: " + start + "\nEnd Node: " + end + "\nWeight: %d", weight);
     }
 }
