@@ -9,8 +9,8 @@ class EdgeTest {
 
     @Test
     void hashCodeCheck() {
-        Edge test = new Edge(new Node("Start"), new Node("End"), 2);
-        Edge test2 = new Edge(new Node("Start"), new Node("End"), 1);
+        Edge<Integer> test = new Edge<Integer>(new Node<>("Start"), new Node<>("End"), 2);
+        Edge<Integer> test2 = new Edge<Integer>(new Node<>("Start"), new Node<>("End"), 1);
         assertEquals(test, test2);
     }
 }

@@ -2,10 +2,10 @@ package Graph;
 
 import java.util.*;
 
-class Graph {
+class Graph<T, V extends Comparable<V>> {
     private int nodeCount; // Order
     private int edgeCount; // Size
-    private Map<Node, Set<Edge>> adjList;
+    private Map<Node<T>, Set<Edge<V>>> adjList;
 
     /**
      * Constructor
@@ -21,7 +21,7 @@ class Graph {
      *
      * @param val value of first node
      */
-    Graph(String val) throws Exception {
+    Graph(T val) throws Exception {
         this();
         addNode(val); // Adds the first node to the map
     }
@@ -41,16 +41,16 @@ class Graph {
      *
      * @param input the value of the node
      */
-    void addNode(String input) throws Exception {
+    void addNode(T input) throws Exception {
         // Create a node with the given input
-        Node newNode = new Node(input);
+        Node<T> newNode = new Node<>(input);
 
         // Check if the node already exists
         if (nodeExists(newNode)) throw new Exception("The key already exists!");
 
         // If it does not, then add it to the adjacency list and increment the node count
         adjList.put(newNode, new HashSet<>());
-        incrementNodeCount();
+        nodeCount++;
     }
 
     /**
@@ -58,20 +58,23 @@ class Graph {
      *
      * @param input node being removed
      */
-    void removeNode(String input) {
+    void removeNode(T input) {
         // Create a node with the given input
-        Node nodeBeingRemoved = new Node(input);
+        Node<T> nodeBeingRemoved = new Node<>(input);
 
-        // Remove all references in the set of values
-        adjList.values().forEach(value -> value.forEach(edge -> {
-            if (edge.getStart().equals(nodeBeingRemoved) || edge.getEnd().equals(nodeBeingRemoved)) {
-                value.remove(edge);
-            }
-        }));
+        // Check if adjacency list contains the node being removed
+        if (adjList.containsKey(nodeBeingRemoved)) {
+            // Remove all references in the set of values
+            adjList.values().forEach(value -> value.forEach(edge -> {
+                if (edge.getStart().equals(nodeBeingRemoved) || edge.getEnd().equals(nodeBeingRemoved)) {
+                    value.remove(edge);
+                }
+            }));
 
-        // Remove the actual key and decrement the node count
-        adjList.remove(nodeBeingRemoved);
-        decrementNodeCount();
+            // Remove the actual key and decrement the node count
+            adjList.remove(nodeBeingRemoved);
+            nodeCount--;
+        }
     }
 
     /**
@@ -84,11 +87,11 @@ class Graph {
     private boolean edgeExists(Node start, Node end) throws Exception {
         // Check if nodes exist
         if (!nodeExists(start) || !nodeExists(end)) {
-            throw new Exception("Nodes are invalid");
+            throw new Exception("Nodes are invalid!");
         }
 
-        Edge one = new Edge(start, end, 0);
-        Edge two = new Edge(end, start, 0);
+        Edge<Integer> one = new Edge<Integer>(start, end, 0);
+        Edge<Integer> two = new Edge<Integer>(end, start, 0);
         return adjList.get(start).contains(one) || adjList.get(end).contains(two);
     }
 
@@ -100,13 +103,13 @@ class Graph {
      * @param weight weight between nodes
      * @throws Exception when the start node is the same as the end node
      */
-    void addEdge(String start, String end, int weight) throws Exception {
+    void addEdge(T start, T end, V weight) throws Exception {
         // Check if the start is equal to the end
         if (start.equals(end)) throw new Exception("You can't create an edge between the same node!");
 
         // Create start & end nodes from the inputted strings
-        Node startNode = new Node(start);
-        Node endNode = new Node(end);
+        Node<T> startNode = new Node<>(start);
+        Node<T> endNode = new Node<>(end);
 
         // Check if the adjacency list contains both nodes
         if (!adjList.containsKey(startNode)) addNode(start);
@@ -118,10 +121,9 @@ class Graph {
         }
 
         // Create the edge if it doesn't exist
-        adjList.get(startNode).add(new Edge(startNode, endNode, weight));
-        adjList.get(endNode).add(new Edge(endNode, startNode, weight));
-
-        incrementEdgeCount();
+        adjList.get(startNode).add(new Edge<V>(startNode, endNode, weight));
+        adjList.get(endNode).add(new Edge<V>(endNode, startNode, weight));
+        edgeCount++;
     }
 
     /**
@@ -130,16 +132,16 @@ class Graph {
      * @param start starting node
      * @param end   ending node
      */
-    void removeEdge(String start, String end) throws Exception {
+    void removeEdge(T start, T end) throws Exception {
         // Create start & end nodes from the inputted strings
-        Node startNode = new Node(start);
-        Node endNode = new Node(end);
+        Node<T> startNode = new Node<>(start);
+        Node<T> endNode = new Node<>(end);
 
         // Remove each nodes reference from the other nodes set
         if (edgeExists(startNode, endNode)) {
-            adjList.get(startNode).remove(new Edge(startNode, endNode, 0));
-            adjList.get(endNode).remove(new Edge(endNode, startNode, 0));
-            decrementEdgeCount();
+            adjList.get(startNode).remove(new Edge<Integer>(startNode, endNode, 0));
+            adjList.get(endNode).remove(new Edge<Integer>(endNode, startNode, 0));
+            edgeCount--;
         }
     }
 
@@ -154,27 +156,11 @@ class Graph {
         });
     }
 
-    public int getNodeCount() {
+    int getNodeCount() {
         return nodeCount;
     }
 
-    public int getEdgeCount() {
+    int getEdgeCount() {
         return edgeCount;
-    }
-
-    private void incrementNodeCount() {
-        nodeCount++;
-    }
-
-    private void decrementNodeCount() {
-        nodeCount--;
-    }
-
-    private void incrementEdgeCount() {
-        edgeCount++;
-    }
-
-    private void decrementEdgeCount() {
-        edgeCount--;
     }
 }

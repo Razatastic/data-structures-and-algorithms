@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 class GraphTest {
-    Graph test = new Graph();
+    private Graph<String, Integer> test = new Graph<String, Integer>();
 
     @Test
     void nodeCount() throws Exception {
@@ -14,11 +14,13 @@ class GraphTest {
 
         // Check count after adding a node
         test.addNode("A");
-        assertEquals(1, test.getNodeCount());
+        test.addNode("F");
+        assertEquals(2, test.getNodeCount());
 
         // Check count after deleting a node
         test.removeNode("A");
-        assertEquals(0, test.getNodeCount());
+        test.removeNode("c");
+        assertEquals(1, test.getNodeCount());
     }
 
     @Test
@@ -28,10 +30,15 @@ class GraphTest {
 
         // Check count after adding an edge
         test.addEdge("A", "B", 12);
-        assertEquals(1, test.getEdgeCount());
+        test.addEdge("B", "C", 5);
+        test.addEdge("A", "C", 100);
+        test.addEdge("B", "D", 21);
+        test.addEdge("C", "D", 1);
+        assertEquals(5, test.getEdgeCount());
 
         // Check count after removing an edge
         test.removeEdge("A", "B");
-        assertEquals(0, test.getEdgeCount());
+        test.removeEdge("C", "B");
+        assertEquals(3, test.getEdgeCount());
     }
 }

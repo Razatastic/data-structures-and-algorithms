@@ -1,6 +1,6 @@
 package Graph;
 
-public class Edge<V extends Comparable> implements Comparable<Edge<V>> {
+public class Edge<V extends Comparable<V>> implements Comparable<Edge<V>> {
     private Node start, end;
     private V weight;
 
@@ -18,7 +18,7 @@ public class Edge<V extends Comparable> implements Comparable<Edge<V>> {
         return end;
     }
 
-    V getWeight() {
+    private V getWeight() {
         return weight;
     }
 
@@ -37,7 +37,7 @@ public class Edge<V extends Comparable> implements Comparable<Edge<V>> {
     @Override
     public int compareTo(Edge<V> o) {
         if (o.getWeight() instanceof Number) {
-            return this.getWeight().compareTo(o.getWeight());
+            return this.weight.compareTo(o.weight);
         }
         return -1;
     }
