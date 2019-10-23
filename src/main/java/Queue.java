@@ -1,3 +1,3 @@
-//public class Queue<T> {
-//    private Node<T> head, tail;
-//}
+public class Queue<T> {
+
+}
