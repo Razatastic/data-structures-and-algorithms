@@ -9,50 +9,82 @@ import Interfaces.List;
  */
 class LinkedList<T> implements List<T> {
     private Node<T> head;
+    private Node<T> tail;
     private int size;
 
     LinkedList(T input) {
-        head = new Node<>(input);
+        head = tail = new Node<>(input);
         size = 1;
     }
 
     LinkedList() {
-        head = null;
+        head = tail = null;
         size = 0;
     }
 
     T peek() {
+        if (head == null) return null;
         return head.data;
+    }
+
+    T getLast() {
+        if (tail == null) return null;
+        return tail.data;
     }
 
     @Override
     public boolean add(T element) {
         // Edge cases
         if (element == null) return false;
-        if (head == null) head = new Node<>(element);
+
+        // Make dummy node
+        Node<T> curr = new Node<T>(null);
 
         // Traverse list
-        Node<T> curr = head;
+        curr.next = head;
         while (curr.next != null) {
             curr = curr.next;
         }
 
-        // Add node & return
+        // Add node & increment list size
         curr.next = new Node<>(element);
+        this.size++;
+        tail = curr.next;
+
         return true;
     }
 
     @Override
     public boolean remove(T element) {
-        Node<T> elm = new Node<>(element);
-        if (head.equals(elm)) head = head.next;
+        // Edge cases
+        if (element == null) return false;
+
+        // Create a temporary node for comparison
+        Node<T> nodeBeingDeleted = new Node<>(element);
+
+        // Create a dummy node that points to the head
+        Node<T> tempNode = new Node<T>(null);
+        tempNode.next = head;
+
+        // Traverse through the list
+        while (tempNode.next != null) {
+            if (tempNode.next.equals(nodeBeingDeleted)) {
+                if (tempNode.next.equals(tail)) tail = tempNode;
+                tempNode.next = tempNode.next.next;
+                return true;
+            }
+            tempNode = tempNode.next;
+        }
+
         return false;
     }
 
     @Override
     public T get(int index) throws OutOfRangeException {
+        // Edge cases
         if (index >= size || index < 0)
             throw new OutOfRangeException("Index out of bounds! Try an index between 0 and " + size);
+
         // Traverse list
         Node<T> current = head;
         int i = 0;
