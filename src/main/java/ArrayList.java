@@ -29,9 +29,19 @@ public class ArrayList<T> {
             // Search for the element
             for (int i = 0; i < size; i++) {
                 if (elements[i].equals(element)) {
-                    
+
                 }
             }
+        }
+    }
+
+    void remove(int elementIdx) throws Exception {
+        // Range check
+        if (elementIdx < 0 || elementIdx >= size) throw new Exception("Please enter a valid index!");
+
+        // Empty array check
+        if (size != 0) {
+
         }
     }
 

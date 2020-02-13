@@ -30,7 +30,7 @@ public class Edge<T, V extends Comparable<V>> implements Comparable<Edge<T, V>> 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Edge)) return false;
-        Edge castedInput = (Edge) o;
+        Edge<T, V> castedInput = (Edge<T, V>) o;
         return castedInput.getStart().equals(this.getStart()) && (castedInput.getEnd().equals(this.getEnd()));
     }
 
