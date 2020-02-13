@@ -10,10 +10,10 @@ class LinkedListTest {
     private static LinkedList<String> test = new LinkedList<>("one"); // with initial value for head node
     private static LinkedList<Integer> test2 = new LinkedList<Integer>(); // without initial value for head node
 
-    void populateList() {
-        test.add("three");
-        test.add("five");
-        test.add("seven");
+    void populateList(LinkedList<String> list) {
+        list.add("three");
+        list.add("five");
+        list.add("seven");
     }
 
     @Test
@@ -29,16 +29,18 @@ class LinkedListTest {
 
     @Test
     void getAnyElement() throws OutOfRangeException {
-        populateList();
+        populateList(test);
         assertEquals("five", test.get(test.size() - 2));
     }
 
-//    @Test
-//    @DisplayName("Checks if the input is being added to the end of the list")
-//    void add() throws OutOfRangeException {
-//        test.add("nine");
-//        assertEquals("nine", test.getLast());
-//    }
+    @Test
+    @DisplayName("Checks if the input is being added to the end of the list")
+    void add() throws OutOfRangeException {
+        test.add("seventy");
+        test.remove("seventy");
+//        assertEquals("seventy", test.getLast());
+        System.out.println(test);
+    }
 //
 //    @Test
 //    void addAtFront() {
