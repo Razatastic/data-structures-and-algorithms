@@ -1,9 +1,9 @@
 package Graph;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
 
 class GraphTest {
     private Graph<String, Integer> test = new Graph<String, Integer>();
@@ -47,12 +47,18 @@ class GraphTest {
     void bfsPathTest() throws Exception {
         test.addEdge("A", "B", 1);
         test.addEdge("B", "C", 1);
+        test.addEdge("C", "D", 1);
         test.addEdge("D", "E", 1);
-        test.addEdge("F", "G", 1);
-        test.addEdge("H", "J", 1);
-
-        assertTrue(test.bfs("A", "G"));
+        test.addEdge("E", "F", 1);
+        test.addEdge("Z", "Y", 1);
 
 
+        assertTrue(test.bfs("A", "F"));
+        assertTrue(test.bfs("Y", "Z"));
+        assertTrue(test.bfs("Y", "Z"));
+        assertTrue(test.bfs("Y", "Z"));
+        assertTrue(test.bfs("Y", "Z"));
+        assertTrue(test.bfs("Z", "Y"));
+        assertTrue(test.bfs("Z", "Z"));
     }
 }

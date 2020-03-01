@@ -32,7 +32,7 @@ class Graph<T, V extends Comparable<V>> {
      * @param node node you're checking for
      * @return <tt>true</tt> if node is present in adjacency list
      */
-    private boolean nodeExists(Node node) {
+    private boolean nodeExists(Node<T> node) {
         return node != null && adjList.containsKey(node);
     }
 
@@ -161,8 +161,12 @@ class Graph<T, V extends Comparable<V>> {
         Node<T> endNode = new Node<>(end);
 
         // Update state for all nodes
-        for (Node node : adjList.keySet()) {
+        for (Node<T> node : adjList.keySet()) {
             node.currentState = State.UNVISITED;
+            for (Edge<T, V> edge : adjList.get(node)) {
+                Node<T> adjNode = edge.getEnd();
+                adjNode.currentState = State.UNVISITED;
+            }
         }
 
         Queue<Node<T>> q = new LinkedList<>();
