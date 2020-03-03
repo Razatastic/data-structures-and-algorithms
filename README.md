@@ -1,7 +1,7 @@
 # Data Structures & Algorithms
 My implementation of common data structures and algorithms.
 
-Java
+Languages: Java
 
 Unit testing: JUnit5
 
