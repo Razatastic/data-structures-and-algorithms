@@ -1,5 +1,6 @@
 package LinkedList;
 
+import Exceptions.OutOfRangeException;
 import Interfaces.List;
 
 /**
@@ -8,8 +9,7 @@ import Interfaces.List;
  * @param <T>
  */
 class LinkedList<T> implements List<T> {
-    private Node<T> head;
-    private Node<T> tail;
+    private Node<T> head, tail;
     private int size;
 
     LinkedList(T input) {

@@ -1,6 +1,6 @@
 package Interfaces;
 
-import LinkedList.OutOfRangeException;
+import Exceptions.OutOfRangeException;
 
 public interface List<E> {
     int size();

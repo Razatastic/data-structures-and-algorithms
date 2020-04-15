@@ -1,5 +1,6 @@
 package LinkedList;
 
+import Exceptions.OutOfRangeException;
 import Interfaces.List;
 
 public class DoublyLinkedList<T> implements List<T> {
