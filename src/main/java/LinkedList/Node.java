@@ -18,7 +18,8 @@ class Node<T> {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Node) {
-            Node castedObj = (Node) o;
+            @SuppressWarnings("unchecked")
+            Node<T> castedObj = (Node<T>) o;
             return castedObj.data == data && castedObj.next == next && castedObj.prev == prev;
         }
         return false;

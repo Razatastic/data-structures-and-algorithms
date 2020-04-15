@@ -6,9 +6,9 @@ public class ArrayList<T> {
     private Object[] elements;
 
     ArrayList() {
-        size = 0;
-        capacity = 1;
-        elements = new Object[capacity];
+        this.size = 0;
+        this.capacity = 1;
+        this.elements = new Object[capacity];
     }
 
     /**
@@ -20,9 +20,14 @@ public class ArrayList<T> {
         // Check if array is full
         if (size == capacity) doubleCapacity();
         // Add the element & increment the size of the array
-        elements[size++] = element;
+        this.elements[size++] = element;
     }
 
+    /**
+     * Remove specified element
+     *
+     * @param element being removed
+     */
     void remove(T element) {
         // Check if array is empty
         if (size != 0) {
@@ -35,6 +40,12 @@ public class ArrayList<T> {
         }
     }
 
+    /**
+     * Remove element at a certain index
+     *
+     * @param elementIdx
+     * @throws Exception for a non-valid index
+     */
     void remove(int elementIdx) throws Exception {
         // Range check
         if (elementIdx < 0 || elementIdx >= size) throw new Exception("Please enter a valid index!");
@@ -57,16 +68,16 @@ public class ArrayList<T> {
 
         // Copy over the elements from the current array to the temporary array
         int i = 0;
-        for (Object x : elements) {
+        for (Object x : this.elements) {
             temp[i++] = x;
         }
 
         // Update elements array
-        elements = temp;
+        this.elements = temp;
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(elements);
+        return Arrays.toString(this.elements);
     }
 }
