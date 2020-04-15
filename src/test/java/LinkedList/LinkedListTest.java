@@ -10,12 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class LinkedListTest {
     private static LinkedList<String> listOne = new LinkedList<>("one"); // with initial value for head node
     private static LinkedList<Integer> listTwo = new LinkedList<Integer>(); // without initial value for head node
-    
-    public static void main(String[] args) {
+
+    void initializeList() {
         listOne.add("two");
         listOne.add("three");
         listOne.add("four");
         listOne.add("five");
+    }
+
+    void resetList() {
+        listOne = new LinkedList<>("one");
     }
 
     @Test
@@ -32,12 +36,14 @@ class LinkedListTest {
 
     @Test
     void getLastElement() throws OutOfRangeException {
-        assertEquals("five", listOne.get(2));
+        initializeList();
+        assertEquals("five", listOne.get(listOne.size() - 1));
+        resetList();
     }
 
     @Test
     @DisplayName("Checks if the input is being added to the end of the list")
-    void add() throws OutOfRangeException {
+    void add() {
         listOne.add("seventy");
         assertEquals("seventy", listOne.getLast());
     }
