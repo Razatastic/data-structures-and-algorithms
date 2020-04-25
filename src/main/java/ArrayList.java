@@ -14,7 +14,7 @@ public class ArrayList<T> {
     /**
      * Add an element to the ArrayList
      *
-     * @param element being added
+     * @param element the element being added
      */
     void add(T element) {
         // Check if array is full
@@ -26,7 +26,7 @@ public class ArrayList<T> {
     /**
      * Remove specified element
      *
-     * @param element being removed
+     * @param element the element being removed
      */
     void remove(T element) {
         // Check if array is empty
