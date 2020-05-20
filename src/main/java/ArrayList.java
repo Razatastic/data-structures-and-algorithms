@@ -28,14 +28,12 @@ public class ArrayList<T> {
      *
      * @param element the element being removed
      */
-    void remove(T element) {
+    void remove(T element) throws Exception {
         // Check if array is empty
-        if (size != 0) {
+        if (size > 0) {
             // Search for the element
             for (int i = 0; i < size; i++) {
-                if (elements[i].equals(element)) {
-
-                }
+                if (elements[i].equals(element)) remove(i);
             }
         }
     }
@@ -43,17 +41,20 @@ public class ArrayList<T> {
     /**
      * Remove element at a certain index
      *
-     * @param elementIdx
-     * @throws Exception for a non-valid index
+     * @param elementIdx the index you're removing
+     * @throws Exception throw an exception for a non-valid index
      */
     void remove(int elementIdx) throws Exception {
         // Range check
         if (elementIdx < 0 || elementIdx >= size) throw new Exception("Please enter a valid index!");
 
-        // Empty array check
-        if (size != 0) {
+        int i;
 
+        for (i = elementIdx; i < size; i++) {
+            elements[i] = elements[i + 1];
         }
+
+        elements[size - 1] = null;
     }
 
     /**
