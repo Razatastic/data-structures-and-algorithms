@@ -1,26 +1,64 @@
 import java.util.Arrays;
 
-public class ArrayList<T> {
+public class ArrayList<E> {
 
-    private int size, capacity;
+    private static final int DEFAULT_CAPACITY = 10;
+    private int size = 0;
     private Object[] elements;
 
-    ArrayList() {
-        this.size = 0;
-        this.capacity = 1;
-        this.elements = new Object[capacity];
+    public ArrayList() {
+        elements = new Object[DEFAULT_CAPACITY];
     }
 
     /**
      * Add an element to the ArrayList
      *
-     * @param element the element being added
+     * @param e the element being added
      */
-    void add(T element) {
+    public void add(E e) {
         // Check if array is full
-        if (size == capacity) doubleCapacity();
+        if (size == elements.length) ensureCapacity();
         // Add the element & increment the size of the array
-        this.elements[size++] = element;
+        this.elements[size++] = e;
+    }
+
+    /**
+     * Get element at a certain index
+     *
+     * @param i index at which you're retrieving the element from
+     * @return element at that particular index
+     */
+    @SuppressWarnings("unchecked")
+    public E get(int i) {
+        if (i < 0 || i >= size)
+            throw new IndexOutOfBoundsException("Index: " + i + ", Size " + i);
+        return (E) elements[i];
+    }
+
+    /**
+     * Remove element at a certain index
+     *
+     * @param i the index at which you're removing the element from
+     * @return element that was removed
+     * @throws IndexOutOfBoundsException throw an exception for a non-valid index
+     */
+    @SuppressWarnings("unchecked")
+    public E remove(int i) {
+        // Range check
+        if (i < 0 || i >= size)
+            throw new IndexOutOfBoundsException("Index: " + i + ", Size " + i);
+
+        Object item = elements[i];
+        int numElms = elements.length - (i + 1);
+        return (E) item;
+
+//        int i;
+//
+//        for (i = i; i < size; i++) {
+//            elements[i] = elements[i + 1];
+//        }
+//
+//        elements[size - 1] = null;
     }
 
     /**
@@ -28,7 +66,7 @@ public class ArrayList<T> {
      *
      * @param element the element being removed
      */
-    void remove(T element) throws Exception {
+    public void remove(E element) throws Exception {
         // Check if array is empty
         if (size > 0) {
             // Search for the element
@@ -39,46 +77,24 @@ public class ArrayList<T> {
     }
 
     /**
-     * Remove element at a certain index
+     * Get size of list
      *
-     * @param elementIdx the index you're removing
-     * @throws Exception throw an exception for a non-valid index
+     * @return total number of elements in the list
      */
-    void remove(int elementIdx) throws Exception {
-        // Range check
-        if (elementIdx < 0 || elementIdx >= size) throw new Exception("Please enter a valid index!");
-
-        int i;
-
-        for (i = elementIdx; i < size; i++) {
-            elements[i] = elements[i + 1];
-        }
-
-        elements[size - 1] = null;
+    public int size() {
+        return size;
     }
 
     /**
      * Double the ArrayList's capacity when it fills up
      */
-    private void doubleCapacity() {
-        // Double capacity
-        capacity *= 2;
-
-        // Create temporary array
-        Object[] temp = new Object[capacity];
-
-        // Copy over the elements from the current array to the temporary array
-        int i = 0;
-        for (Object x : this.elements) {
-            temp[i++] = x;
-        }
-
-        // Update elements array
-        this.elements = temp;
+    private void ensureCapacity() {
+        int newSize = elements.length * 2;
+        elements = Arrays.copyOf(elements, newSize);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(this.elements);
+        return Arrays.toString(elements);
     }
 }
