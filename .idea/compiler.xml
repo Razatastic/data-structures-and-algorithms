@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="data-structures-and-algorithms" />
         <module name="DataStructuresAndAlgorithms" />
+        <module name="dsa" />
       </profile>
     </annotationProcessing>
   </component>
