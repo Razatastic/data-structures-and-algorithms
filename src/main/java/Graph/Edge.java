@@ -1,8 +1,8 @@
 package Graph;
 
 public class Edge<T, V extends Comparable<V>> implements Comparable<Edge<T, V>> {
-    private Node<T> start, end;
-    private V weight;
+    private final Node<T> start, end;
+    private final V weight;
 
     Edge(Node<T> start, Node<T> end, V weight) {
         this.start = start;
