@@ -1,20 +1,6 @@
 package Algorithms;
 
 class BubbleSort {
-    static int[] sort(int[] input) {
-        for (int i = 0; i < input.length - 1; i++) {
-            for (int j = 0; j < input.length - i - 1; j++) {
-                if (input[j] > input[j + 1]) {
-                    // Swap elements
-                    int temp = input[j];
-                    input[j] = input[j + 1];
-                    input[j + 1] = temp;
-                }
-            }
-        }
-        return input;
-    }
-
     /**
      * Optimization:
      * When inner loop doesn't perform a swap, it means the array is sorted.
@@ -23,20 +9,33 @@ class BubbleSort {
      * @param input array being sorted
      * @return sorted array
      */
-    static int[] optimizedSort(int[] input) {
+    static <T extends Comparable<T>> T[] optimizedSort(T[] input) {
         boolean swapped;
         for (int i = 0; i < input.length - 1; i++) {
             swapped = false;
             for (int j = 0; j < input.length - i - 1; j++) {
-                if (input[j] > input[j + 1]) {
-                    // Swap elements
-                    int temp = input[j];
+                if (input[j].compareTo(input[j + 1]) > 0) {
+                    T temp = input[j];
                     input[j] = input[j + 1];
                     input[j + 1] = temp;
                     swapped = true;
                 }
             }
             if (!swapped) break;
+        }
+        return input;
+    }
+
+    static <T extends Comparable<T>> T[] sort(T[] input) {
+        for (int i = 0; i < input.length - 1; i++) {
+            for (int j = 0; j < input.length - i - 1; j++) {
+                if (input[j].compareTo((input[j + 1])) > 0) {
+                    // Swap elements
+                    T temp = input[j];
+                    input[j] = input[j + 1];
+                    input[j + 1] = temp;
+                }
+            }
         }
         return input;
     }
