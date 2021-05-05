@@ -6,3 +6,5 @@ Languages: Java
 Unit testing: JUnit5
 
 Build tool: Maven
+
+CI/CD: GitHub Actions
