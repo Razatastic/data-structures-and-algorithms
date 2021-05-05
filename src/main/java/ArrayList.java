@@ -51,14 +51,6 @@ public class ArrayList<E> {
         Object item = elements[i];
         int numElms = elements.length - (i + 1);
         return (E) item;
-
-//        int i;
-//
-//        for (i = i; i < size; i++) {
-//            elements[i] = elements[i + 1];
-//        }
-//
-//        elements[size - 1] = null;
     }
 
     /**
