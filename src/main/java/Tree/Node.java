@@ -1,39 +1,63 @@
 package Tree;
 
-public class Node<T> implements Comparable<T> {
-    protected Node<T> left, right;
-    private T data;
+import java.util.Objects;
 
-    Node(T data) {
-        this.data = data;
-        this.left = this.right = null;
+public class Node<T> implements Comparable<T>
+{
+  protected Node<T> left, right;
+  private T data;
+
+  Node(T data)
+  {
+    this.data = data;
+    this.left = this.right = null;
+  }
+
+  T getData()
+  {
+    return this.data;
+  }
+
+  void setData(T data)
+  {
+    this.data = data;
+  }
+
+  @Override
+  public int compareTo(T t)
+  {
+    return 0;
+//        return getData().compareTo(t);
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
     }
 
-    T getData() {
-        return this.data;
-    }
+    Node<?> node = (Node<?>) o;
 
-    void setData(T data) {
-        this.data = data;
+    if (!Objects.equals(left, node.left))
+    {
+      return false;
     }
+    if (!Objects.equals(right, node.right))
+    {
+      return false;
+    }
+    return Objects.equals(data, node.data);
+  }
 
-    @Override
-    public int hashCode() {
-        return 31 * data.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o instanceof Node && ((Node) o).data.equals(this.data);
-    }
-
-    @Override
-    public String toString() {
-        return this.data.toString();
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
+  @Override
+  public int hashCode()
+  {
+    return data != null ? data.hashCode() : 0;
+  }
 }

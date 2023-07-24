@@ -1,3 +1,4 @@
-public class Queue<T> {
+public class Queue<T>
+{
 
 }
