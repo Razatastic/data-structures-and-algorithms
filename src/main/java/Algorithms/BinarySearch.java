@@ -1,26 +1,21 @@
 package Algorithms;
 
-public class BinarySearch
-{
-  private static int getIndex(int[] input, int lo, int hi, int key)
-  {
-    if (hi >= lo)
-    {
+public class BinarySearch {
+
+  private static int getIndex(int[] input, int lo, int hi, int key) {
+    if (hi >= lo) {
       int mid = (lo + hi) / 2;
 
-      if (key == input[mid])
-      {
+      if (key == input[mid]) {
         return mid;
       }
 
       // If the key is greater, then run the search on the right-hand side of the array
-      else if (key > input[mid])
-      {
+      else if (key > input[mid]) {
         return getIndex(input, mid + 1, hi, key);
       }
       // If the key is smaller, then run the search on the left-hand side of the array
-      else
-      {
+      else {
         return getIndex(input, lo, mid - 1, key);
       }
     }
@@ -28,10 +23,8 @@ public class BinarySearch
     return -1; // Key not present
   }
 
-  private static int getIndex(int[] input, int key) throws NullPointerException
-  {
-    if (input == null)
-    {
+  private static int getIndex(int[] input, int key) throws NullPointerException {
+    if (input == null) {
       throw new NullPointerException();
     }
 

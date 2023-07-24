@@ -5,13 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-class GraphTest
-{
+class GraphTest {
+
   private final Graph<String, Integer> test = new Graph<String, Integer>();
 
   @Test
-  void nodeCount() throws Exception
-  {
+  void nodeCount() throws Exception {
     // Check count upon creation
     assertEquals(0, test.getNodeCount());
 
@@ -27,8 +26,7 @@ class GraphTest
   }
 
   @Test
-  void edgeCount() throws Exception
-  {
+  void edgeCount() throws Exception {
     // Check count upon creation
     assertEquals(0, test.getEdgeCount());
 
@@ -47,8 +45,7 @@ class GraphTest
   }
 
   @Test
-  void bfsPathTest() throws Exception
-  {
+  void bfsPathTest() throws Exception {
     test.addEdge("A", "B", 1);
     test.addEdge("B", "C", 1);
     test.addEdge("C", "D", 1);

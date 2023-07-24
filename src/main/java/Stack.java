@@ -1,4 +1,3 @@
-public class Stack<T>
-{
+public class Stack<T> {
 
 }

@@ -1,5 +1,5 @@
 package Graph;
 
 public enum State {
-    VISITED, UNVISITED, VISITING
+  VISITED, UNVISITED, VISITING
 }

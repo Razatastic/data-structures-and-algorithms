@@ -8,48 +8,40 @@ import Interfaces.List;
  *
  * @param <T>
  */
-class LinkedList<T> implements List<T>
-{
+class LinkedList<T> implements List<T> {
+
   private final Node<T> head;
   private Node<T> tail;
   private int size;
 
-  LinkedList(T input)
-  {
+  LinkedList(T input) {
     head = tail = new Node<>(input);
     size = 1;
   }
 
-  LinkedList()
-  {
+  LinkedList() {
     head = tail = null;
     size = 0;
   }
 
-  T peek()
-  {
-    if (head == null)
-    {
+  T peek() {
+    if (head == null) {
       return null;
     }
     return head.data;
   }
 
-  T getLast()
-  {
-    if (tail == null)
-    {
+  T getLast() {
+    if (tail == null) {
       return null;
     }
     return tail.data;
   }
 
   @Override
-  public boolean add(T element)
-  {
+  public boolean add(T element) {
     // Edge cases
-    if (element == null)
-    {
+    if (element == null) {
       return false;
     }
 
@@ -58,8 +50,7 @@ class LinkedList<T> implements List<T>
 
     // Traverse list
     curr.next = head;
-    while (curr.next != null)
-    {
+    while (curr.next != null) {
       curr = curr.next;
     }
 
@@ -72,11 +63,9 @@ class LinkedList<T> implements List<T>
   }
 
   @Override
-  public boolean remove(T element)
-  {
+  public boolean remove(T element) {
     // Edge cases
-    if (element == null)
-    {
+    if (element == null) {
       return false;
     }
 
@@ -88,12 +77,9 @@ class LinkedList<T> implements List<T>
     tempNode.next = head;
 
     // Traverse through the list
-    while (tempNode.next != null)
-    {
-      if (tempNode.next.equals(nodeBeingDeleted))
-      {
-        if (tempNode.next.equals(tail))
-        {
+    while (tempNode.next != null) {
+      if (tempNode.next.equals(nodeBeingDeleted)) {
+        if (tempNode.next.equals(tail)) {
           tail = tempNode;
         }
         tempNode.next = tempNode.next.next;
@@ -106,19 +92,16 @@ class LinkedList<T> implements List<T>
   }
 
   @Override
-  public T get(int index) throws OutOfRangeException
-  {
+  public T get(int index) throws OutOfRangeException {
     // Edge cases
-    if (index >= size || index < 0)
-    {
+    if (index >= size || index < 0) {
       throw new OutOfRangeException("Index out of bounds! Try an index between 0 and " + size);
     }
 
     // Traverse list
     Node<T> current = head;
     int i = 0;
-    while (i != index)
-    {
+    while (i != index) {
       current = current.next;
       i++;
     }
@@ -126,19 +109,16 @@ class LinkedList<T> implements List<T>
   }
 
   @Override
-  public int size()
-  {
+  public int size() {
     return size;
   }
 
   @Override
-  public String toString()
-  {
+  public String toString() {
     StringBuilder result = new StringBuilder();
     // Traverse through list
     Node<T> current = head;
-    while (current != null)
-    {
+    while (current != null) {
       result.append(current.data).append(" "); // Store result
       current = current.next;
     }
